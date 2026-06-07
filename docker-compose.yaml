@@ -1,11 +1,10 @@
 services:
   app:
-    build:
-      context: ./express-app
-    image: derealthink/express-app:local
+    image: derealthink/express-app:latest
     ports:
       - "3000:3000"
     container_name: express-app
+    restart: unless-stopped
 
   watchtower:
     image: nickfedor/watchtower
@@ -14,5 +13,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: watchtower
+    restart: unless-stopped
     depends_on:
       - app
